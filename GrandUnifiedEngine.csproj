@@ -2,15 +2,82 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
+    <StartupObject>GrandUnifiedEngine.App</StartupObject>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
     <PackageReference Include="System.Management" Version="7.0.0" />
     <PackageReference Include="Zaber.Motion" Version="3.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.Benchtop.BrushlessMotorUI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Benchtop.BrushlessMotorUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.DeviceManagerCLI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.DeviceManagerCLI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.DeviceManagerUI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.DeviceManagerUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.GenericMotorCLI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.GenericMotorCLI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.GenericMotorUI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.GenericMotorUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.PrivateInternal">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.PrivateInternal.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.Tools.Common">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Tools.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.Tools.Logging">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Tools.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.Tools.WPF">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Tools.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.Tools.WPF.UI">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Thorlabs.MotionControl.Tools.WPF.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>bin\x64\Debug\net6.0-windows10.0.17763.0\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Thorlabs.MotionControl.Benchtop.BrushlessMotor.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

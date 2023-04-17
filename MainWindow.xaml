@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GrandUnifiedEngine"
-        mc:Ignorable="d"
-        Title="GrandeControleur" Height="600" Width="1200">
+        mc:Ignorable="d" Title="GrandeControleur" 
+        Loaded="Window_Loaded" Height="600" Width="1350">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -26,6 +26,9 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" 
                Content="SRAS Control Agent" FontSize="20" Margin="10" />
@@ -39,15 +42,98 @@
         <Button Grid.Column="5" Grid.Row="1" Name="ToggleZaberConnection" 
                 Margin="10" Height="35" Content="Connect" Click="ToggleZaberConnection_Click"/>
         <Label Grid.Column="1" Grid.Row="2" Content="Axis 1" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
-        <Label Grid.Column="1" Grid.Row="2" Content="Position" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisOnePosition"/>
+        <Label Grid.Column="1" Grid.Row="2" Content="NC" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisOnePosition"/>
         <Label Grid.Column="1" Grid.Row="2" Content="Home" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="8" IsEnabled="False" Name="AxisOneHomed"/>
         <Label Grid.Column="2" Grid.Row="2" Content="Axis 2" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
-        <Label Grid.Column="2" Grid.Row="2" Content="Position" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisTwoPosition"/>
+        <Label Grid.Column="2" Grid.Row="2" Content="NC" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisTwoPosition"/>
         <Label Grid.Column="2" Grid.Row="2" Content="Home" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="8" IsEnabled="False" Name="AxisTwoHomed"/>
         <Label Grid.Column="3" Grid.Row="2" Content="Axis 3" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
-        <Label Grid.Column="3" Grid.Row="2" Content="Position" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisThreePosition"/>
-        <Label Grid.Column="3" Grid.Row="2" Content="Home" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="8" IsEnabled="False" Name="AxisThreeHomed"/>    
-        
+        <Label Grid.Column="3" Grid.Row="2" Content="NC" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Name="AxisThreePosition"/>
+        <Label Grid.Column="3" Grid.Row="2" Content="Home" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="8" IsEnabled="False" Name="AxisThreeHomed"/>
+        <Label Grid.Column="6" Grid.Row="1" Content="Thorlabs MLS SN" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5" />
+        <TextBox Grid.Column="7" Grid.Row="1" Text="123456789" Name="ThorlabsSN" Margin="10" MaxHeight="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Button Grid.Column="8" Grid.Row="1" Content="Connect MLS" Name="ThorlabsButton" Click="ThorlabsButton_Click" Margin="0,15,15,15" MaxHeight="40" HorizontalAlignment="Right" Width="115" />
+        <Label Grid.Column="7" Grid.Row="2" Content="X Position [mm]"  HorizontalContentAlignment="Center" />
+        <Label Grid.Column="8" Grid.Row="2" Content="Y Position [mm]"  HorizontalContentAlignment="Center" />
+        <Label Grid.Column="7" Grid.Row="2" Content="NC" Name="MLSXPosition" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <Label Grid.Column="8" Grid.Row="2" Content="NC" Name="MLSYPosition" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="8" Grid.RowSpan="3" 
+            Name="PositionDataGrid" AutoGenerateColumns="False" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="SizeToCells" MinWidth="220" Header="Friendly Name" 
+                                    Binding="{Binding Path=PositionFriendlyName, Mode=TwoWay}"/>
+                <DataGridTextColumn Width="SizeToCells" MinWidth="60" Header="X [mm]" 
+                                    Binding="{Binding Path=XPos, Mode=TwoWay}"/>
+                <DataGridTextColumn Width="SizeToCells" MinWidth="60" Header="Y [mm]"
+                                    Binding="{Binding Path=YPos, Mode=TwoWay}"/>
+                <DataGridTextColumn Width="SizeToCells" MinWidth="60" Header="Z [mm]"
+                                    Binding="{Binding Path=ZPos, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="SRASOK"
+                                        Binding="{Binding Path=OutputOne, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="SRASCTL"
+                                        Binding="{Binding Path=OutputTwo, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="SRASDONE"
+                                        Binding="{Binding Path=OutputThree, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="SRASERR"
+                                        Binding="{Binding Path=OutputFour, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="R3DRTL" 
+                                        Binding="{Binding Path=InputOne, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="R3DRTS" 
+                                        Binding="{Binding Path=InputTwo, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="R3DOK" 
+                                        Binding="{Binding Path=InputThree, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="NOTUSED"
+                                        Binding="{Binding Path=InputFour, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="MLSHome" Binding="{Binding Path=SafeMLS, Mode=TwoWay}" />
+                <DataGridCheckBoxColumn Width="SizeToCells" MinWidth="65" Header="MLSLoad" Binding="{Binding Path=LoadMLS, Mode=TwoWay}"/>
+                <DataGridCheckBoxColumn MinWidth="65" Header="Grip" Binding="{Binding Path=GripOn, Mode=TwoWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="AddPositionButton" Content="Add Position" Grid.Row="3" 
+                Grid.Column="8" Margin="5 15" Click="AddPositionButton_Click"/>
+        <Button Name="TeachPositionButton" Content="Teach Position" Grid.Row="6" Grid.Column="8" 
+                Margin="5 15" Click="TeachPositionButton_Click"/>
+        <Button Name="RemovePositionButton" Content="Remove Position" Click="RemovePositionButton_Click" Grid.Row="4"
+                Grid.Column="8" Margin="5 15" />
+        <Button Name="SaveToXMLButton" Content="Save to XML" Click="SaveToXMLButton_Click"  Grid.Row="5"
+                Grid.Column="8" Margin="5 15" />
+
+        <Label Content="bSRASReady" Grid.Column="1" Grid.Row="7" 
+               HorizontalContentAlignment="Center" />
+        <Label Name="bSRASReady" Content="false" Grid.Column="1" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bClearToLoadSRAS" Grid.Column="2" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="bClearToLoadSRAS" Content="false" Grid.Column="2" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bSRASComplete" Grid.Column="3" Grid.Row="7" 
+               HorizontalContentAlignment="Center" />
+        <Label Name="bSRASDone" Content="false" Grid.Column="3" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bSRASError" Grid.Column="4" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="bSRASError" Content="false" Grid.Column="4" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bReadyToLoad" Grid.Column="5" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="bReadyToLoadSRAS" Content="false" Grid.Column="5" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bReadyToSRAS" Grid.Column="6" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="bReadyToSRAS" Content="false" Grid.Column="6" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="bR3DOkay" Grid.Column="7" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="bR3DOK" Content="false" Grid.Column="7" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Label Content="MagGrip" Grid.Column="8" Grid.Row="7"
+               HorizontalContentAlignment="Center" />
+        <Label Name="MagGrip" Content="false" Grid.Column="8" Grid.Row="7" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center" />
+        <Button Name="EnableControl" Content="Enable Transfer System" Grid.Row="8" Grid.Column="1"
+                Grid.ColumnSpan="3" Margin="5 15" Click="EnableControl_Click" />
+        <Button Name="ToggleMag" Content="Toggle Mag Grip" Grid.Row="8" Grid.Column="4"
+                Grid.ColumnSpan="3" Margin="5 15" Click="ToggleMag_Click" />
     </Grid>
-    
+
 </Window>
