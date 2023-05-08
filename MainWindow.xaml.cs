@@ -239,8 +239,8 @@ namespace GrandUnifiedEngine
                                     // Check to see if the enable button has been toggled off
                                     return;
                                 }
-                                var _res = MessageBox.Show("Inputs to the controller have been satisfied. Move?",
-                                    "Move Request", MessageBoxButton.YesNo);
+                                //var _res = MessageBox.Show("Inputs to the controller have been satisfied. Move?",
+                                //    "Move Request", MessageBoxButton.YesNo);
                                 // Check if the back slide is where it should be
                                 if ((decimal)TestTransferSystem.ZaberOnePosition != targetPosition.XPos)
                                 {
